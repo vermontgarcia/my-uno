@@ -1,19 +1,21 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, StatusBar } from 'react-native';
+
+import { Provider } from "react-redux"
+import { createStore, applyMiddleware } from "redux"
+import reducers from "./src/reducers"
+
+import Table from './src/components/table'
+
+import ReduxThunk from 'redux-thunk'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-    </View>
+    <Provider store={createStore(reducers, { }, applyMiddleware(ReduxThunk))}>
+      <StatusBar hidden={true} />
+      <Table />
+    </Provider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
