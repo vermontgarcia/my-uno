@@ -14,13 +14,14 @@ export const login = () => {
       .then(user=>{
         return dispatch({
           type: 'LOGIN_SUCCESS',
-          payload: user})
+          payload: user
+        })
       })
       .catch(error => {
         return dispatch({
           type: 'LOGIN_FAILURE',
-          payload: error.message})
-
+          payload: error.message
+        })
       }
     );
   }
@@ -28,6 +29,20 @@ export const login = () => {
 
 
 export const startGame = () => {
+  let hand = [
+    require('../../assets/sixyellow.png'),
+    require('../../assets/zeroblue.png'),
+    require('../../assets/wilddrawfour.png'),
+    require('../../assets/reversegreen.png'),
+    require('../../assets/fivered.png'),
+    require('../../assets/skipred.png'),
+    require('../../assets/wild.png')
+  ]
+
+  return {
+    type: 'GET_HAND',
+    payload: hand
+  }
 
 }
 

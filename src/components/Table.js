@@ -7,7 +7,7 @@ import DrawPile from './DrawPile';
 import DiscarPile from './DiscardPile';
 import Hand from './Hand';
 import { styles } from './TableStyles';
-import { login } from '../actions';
+import { login, startGame } from '../actions';
 import { firebaseConfig } from '../config/appConfig';
 
 class Table extends Component {
@@ -15,6 +15,8 @@ class Table extends Component {
   componentDidMount() {
     firebase.initializeApp(firebaseConfig);
     this.props.login();
+    this.props.startGame();
+
   }
 
   render() {
@@ -24,7 +26,7 @@ class Table extends Component {
         <GameStatus name={this.props.name} />
         <DrawPile />
         <DiscarPile />
-        <Hand />
+        <Hand hand={this.props.hand} />
       </View>
     )
   }
@@ -35,7 +37,8 @@ const mapStateToProps = (state)=>{
     name: state.auth.name,
     userId: state.auth.userId,
     user: state.auth.user,
+    hand: state.hand,
   }
 }
 
-export default connect(mapStateToProps, { login })(Table);
+export default connect(mapStateToProps, { login, startGame })(Table);

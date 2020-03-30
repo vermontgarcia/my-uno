@@ -3,18 +3,25 @@ import { Text, View, TouchableHighlight, Modal, Alert, Image, ScrollView } from 
 import { styles } from './HandStyles';
 import { connect } from 'react-redux';
 import { playCard } from '../actions';
+import Card from './Card';
 
-const Hand = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [hand, setHand] = useState([require('../../assets/zeroblue.png')])
+const Hand = ({hand}) => {
+  const [modalVisible, setModalVisible] = useState(true);
+
+  const onPressHandler = () => {
+    console.log('Play Card')
+    //let currentHand = this.props.hand;
+    //currentHand.splice(index, 1);
+    //setHand(currentHand);
+    setModalVisible(!modalVisible);
+  }
+
   return (
     <View style={styles.container}>
-
       <Modal
         animationType='slide'
         transparent={true}
         visible={modalVisible}
-        
         onDismiss={()=>{
           Alert.alert('Card has been played')
         }}
@@ -27,30 +34,10 @@ const Hand = () => {
                 centerContent={true}
               >
                 {hand.map((card, index)=>
-                  <View key={index}>
-                    <TouchableHighlight
-                      onPress={()=>{
-
-                        console.log('Play Card')
-                        
-
-                        //let currentHand = this.props.hand;
-                        //currentHand.splice(index, 1);
-                        //setHand(currentHand);
-                        setModalVisible(!modalVisible);
-                      }}
-                    >
-                      <Image
-                        style={styles.cardImage}
-                        source={card}
-                      />
-                    </TouchableHighlight>
-                  </View>
+                  <Card key={index} card={card} onPressHandler={onPressHandler} />
                   )}
               </ScrollView>
-
             </View>
-
             <TouchableHighlight
               style={styles.playCardButton}
               onPress={()=>{
@@ -61,9 +48,7 @@ const Hand = () => {
             </TouchableHighlight>
           </View>
         </View>
-
       </Modal>
-
       <TouchableHighlight
         style={styles.showHandButton}
         onPress={()=>{
@@ -72,7 +57,6 @@ const Hand = () => {
       >
         <Text style={styles.textStyle}>Show Hand</Text>
       </TouchableHighlight>
-      
     </View>
   )
 }

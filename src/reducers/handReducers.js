@@ -1,7 +1,9 @@
-const initialState = [require('../../assets/zeroblue.png'), require('../../assets/zeroblue.png'), require('../../assets/wilddrawfour.png'),require('../../assets/zeroblue.png'), require('../../assets/fivered.png'), require('../../assets/wilddrawfour.png')];
+const initialState = [];
 
 export default (state = initialState, action) => {
   switch (action.type){
+    case 'GET_HAND':
+      return action.payload;
     case 'PLAY_CARD':
       return state;
     case 'DRAW_CARD':
