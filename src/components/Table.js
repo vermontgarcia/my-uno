@@ -1,12 +1,12 @@
-import React, { useEffect } from 'react';
+import React, { Component } from 'react';
 import { View } from 'react-native';
+import { connect } from 'react-redux';
+import firebase from 'firebase';
 import GameStatus from './GameStatus';
 import DrawPile from './DrawPile';
 import DiscarPile from './DiscardPile';
 import Hand from './Hand';
 import { styles } from './TableStyles';
-import { connect } from 'react-redux';
-import firebase from 'firebase';
 import { login } from '../actions';
 
 const firebaseConfig = {
@@ -20,27 +20,23 @@ const firebaseConfig = {
   measurementId: "G-97M7BZTK58"
 };
 
+class Table extends Component {
 
-const Table = () => {
-
-  useEffect(() => {
-    // Initialize Firebase
+  componentDidMount() {
     firebase.initializeApp(firebaseConfig);
-    firebase.analytics();
-
-    return () => {
-      //cleanup
-    }
-  }, [])
-
-  return (
-    <View style={styles.container}>
-      <GameStatus />
-      <DrawPile />
-      <DiscarPile />
-      <Hand />
-    </View>
-  )
+    this.props.login();
+  }
+  
+  render() {
+    return (
+      <View style={styles.container}>
+        <GameStatus />
+        <DrawPile />
+        <DiscarPile />
+        <Hand />
+      </View>
+    )
+  }
 }
 
 const mapStateToProps = (state)=>{
@@ -49,4 +45,4 @@ const mapStateToProps = (state)=>{
   }
 }
 
-export default connect(mapStateToProps, { login } )(Table);
+export default connect(mapStateToProps, { login })(Table);
