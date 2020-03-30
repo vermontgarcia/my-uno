@@ -1,12 +1,12 @@
-import { combineReducers } from "redux"
+import { combineReducers } from "redux";
 import AuthReducers from './authReducers'
-import HandReducers from './handReducers'
-import DrawPileReducers from './drawPileReducers'
+import HandReducers from './handReducers';
+import DrawPileReducers from './drawPileReducers';
 
 const rootReducer = combineReducers({
   auth: AuthReducers,
   hand: HandReducers,
-  drawpile: DrawPileReducers,
+  drawPile: DrawPileReducers,
 })
 
 export default rootReducer;

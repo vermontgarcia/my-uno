@@ -2,10 +2,10 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { styles } from './GameStatusStyles';
 
-const GameStatus = () => {
+const GameStatus = ({name}) => {
   return (
     <View style={styles.container}>
-      <Text>Game Status</Text>
+      <Text>{name}</Text>
     </View>
   )
 }

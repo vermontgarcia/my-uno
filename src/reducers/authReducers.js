@@ -1,7 +1,9 @@
 const initialState = {
-  username: '',
+  userId: '',
+  name: 'Guest',
+  loginErrorMsg: '',
   user: {},
-  loginErrorMsg: ''
+  username: ''
 }
 
 export default (state = initialState, action) => {
@@ -9,7 +11,9 @@ export default (state = initialState, action) => {
     case 'AUTH_INPUT_CHANGE':
       return { ...state, [action.payload.field]: action.payload.value }
     case 'LOGIN_SUCCESS':
-      return { ...state , user: action.payload};
+      let userId = action.payload.user.uid;
+      let user = action.payload;
+      return { ...state, userId: userId, user: user  };
     case 'LOGIN_FAILURE':
       return { ...state , loginErrorMsg: action.payload};
     default:

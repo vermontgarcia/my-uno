@@ -12,20 +12,30 @@ export const login = () => {
     firebase.auth()
       .signInAnonymously()
       .then(user=>{
-        console.log('USER LOGGED ====', user)
-        dispatch({type: 'LOGIN_SUCCESS', payload: user})
+        return dispatch({
+          type: 'LOGIN_SUCCESS',
+          payload: user})
       })
       .catch(error => {
-        // Handle Errors here.
-        let errorCode = error.code;
-        let errorMessage = error.message;
-        console.log('Error code: ', errorCode);
-        console.log('Error Message: ', errorMessage);
-        // ...
-        dispatch({type: 'LOGIN_FAILURE', payload: errorMessage})
+        return dispatch({
+          type: 'LOGIN_FAILURE',
+          payload: error.message})
 
       }
     );
+  }
+}
+
+
+export const startGame = () => {
+
+}
+
+export const playCard = (card) => {
+  console.log('Action Play Card')
+  return {
+    type: 'PLAY_CARD',
+    payload: card
   }
 }
 
@@ -37,10 +47,14 @@ export const drawCard = (card) => {
   }
 }
 
-export const playCard = (card) => {
-  console.log('Action Play Card')
-  return {
-    type: 'PLAY_CARD',
-    payload: card
-  }
+export const shoufleDeck = () => {
+
+}
+
+export const shoutUNO = () => {
+
+}
+
+export const endGame = () => {
+
 }

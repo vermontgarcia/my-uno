@@ -8,17 +8,7 @@ import DiscarPile from './DiscardPile';
 import Hand from './Hand';
 import { styles } from './TableStyles';
 import { login } from '../actions';
-
-const firebaseConfig = {
-  apiKey: "AIzaSyDW2D-NokVGHRe9n3YuaJb-QqizCVz2thk",
-  authDomain: "my-uno-b5066.firebaseapp.com",
-  databaseURL: "https://my-uno-b5066.firebaseio.com",
-  projectId: "my-uno-b5066",
-  storageBucket: "my-uno-b5066.appspot.com",
-  messagingSenderId: "920954902891",
-  appId: "1:920954902891:web:8ed61410136d9b9b4c542e",
-  measurementId: "G-97M7BZTK58"
-};
+import { firebaseConfig } from '../config/appConfig';
 
 class Table extends Component {
 
@@ -26,11 +16,12 @@ class Table extends Component {
     firebase.initializeApp(firebaseConfig);
     this.props.login();
   }
-  
+
   render() {
+    
     return (
       <View style={styles.container}>
-        <GameStatus />
+        <GameStatus name={this.props.name} />
         <DrawPile />
         <DiscarPile />
         <Hand />
@@ -41,7 +32,9 @@ class Table extends Component {
 
 const mapStateToProps = (state)=>{
   return {
-    user: state.user
+    name: state.auth.name,
+    userId: state.auth.userId,
+    user: state.auth.user,
   }
 }
 
