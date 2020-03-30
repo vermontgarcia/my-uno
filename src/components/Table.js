@@ -1,13 +1,13 @@
 import React, { useEffect } from 'react';
-import { View } from 'react-native'
-import GameStatus from './GameStatus'
-import DrawPile from './DrawPile'
-import DiscarPile from './DiscardPile'
-import Hand from './Hand'
-import { styles } from './TableStyles'
-import { connect } from 'react-redux'
-import firebase from 'firebase'
-import { login } from '../actions'
+import { View } from 'react-native';
+import GameStatus from './GameStatus';
+import DrawPile from './DrawPile';
+import DiscarPile from './DiscardPile';
+import Hand from './Hand';
+import { styles } from './TableStyles';
+import { connect } from 'react-redux';
+import firebase from 'firebase';
+import { login } from '../actions';
 
 const firebaseConfig = {
   apiKey: "AIzaSyDW2D-NokVGHRe9n3YuaJb-QqizCVz2thk",

@@ -5,7 +5,7 @@ import { Provider } from "react-redux"
 import { createStore, applyMiddleware } from "redux"
 import reducers from "./src/reducers"
 
-import Table from './src/components/table'
+import Table from './src/components/Table'
 
 import ReduxThunk from 'redux-thunk'
 
