@@ -2,7 +2,7 @@ import React from 'react';
 import { View, TouchableHighlight, Image } from 'react-native';
 import { styles } from './CardStyles';
 
-const Card = ({onPressHandler, card}) => {
+const Card = ({onPressHandler, card, index}) => {
   return (
     <View>
       <TouchableHighlight

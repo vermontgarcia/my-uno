@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Text, View, TouchableHighlight, Modal, Alert, Image, ScrollView } from 'react-native';
+import { Text, View, TouchableHighlight, Modal, Alert, ScrollView } from 'react-native';
 import { styles } from './HandStyles';
 import { connect } from 'react-redux';
 import { playCard } from '../actions';
@@ -34,7 +34,7 @@ const Hand = ({hand}) => {
                 centerContent={true}
               >
                 {hand.map((card, index)=>
-                  <Card key={index} card={card} onPressHandler={onPressHandler} />
+                  <Card key={index} card={card} onPressHandler={onPressHandler} index={index}/>
                   )}
               </ScrollView>
             </View>
