@@ -7,20 +7,22 @@ import DrawPile from './DrawPile';
 import DiscarPile from './DiscardPile';
 import Hand from './Hand';
 import { styles } from './TableStyles';
-import { login, startGame } from '../actions';
+import { login, shoufleDeck, getHand } from '../actions';
 import { firebaseConfig } from '../config/appConfig';
+import { deck } from '../config/deck';
 
 class Table extends Component {
 
   componentDidMount() {
+
+
     firebase.initializeApp(firebaseConfig);
     this.props.login();
-    this.props.startGame();
-
+    this.props.shoufleDeck(deck);
+    this.props.getHand(this.props.deck);
   }
 
   render() {
-    
     return (
       <View style={styles.container}>
         <GameStatus name={this.props.name} />
@@ -38,7 +40,8 @@ const mapStateToProps = (state)=>{
     userId: state.auth.userId,
     user: state.auth.user,
     hand: state.hand,
+    deck: state.deck,
   }
 }
 
-export default connect(mapStateToProps, { login, startGame })(Table);
+export default connect(mapStateToProps, { login, shoufleDeck, getHand })(Table);

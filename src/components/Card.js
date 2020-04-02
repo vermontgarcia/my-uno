@@ -6,7 +6,7 @@ const Card = ({onPressHandler, card, index}) => {
   return (
     <View>
       <TouchableHighlight
-        onPress={onPressHandler}
+        onPress={onPressHandler(index)}
       >
         <Image
           style={styles.cardImage}

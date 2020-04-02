@@ -27,23 +27,15 @@ export const login = () => {
   }
 }
 
-
-export const startGame = () => {
-  let hand = [
-    require('../../assets/sixyellow.png'),
-    require('../../assets/zeroblue.png'),
-    require('../../assets/wilddrawfour.png'),
-    require('../../assets/reversegreen.png'),
-    require('../../assets/fivered.png'),
-    require('../../assets/skipred.png'),
-    require('../../assets/wild.png')
-  ]
-
+export const getHand = (deck) => {
+  let hand = []
+  for (let i=0; i<7; i++){
+    hand.push(deck.splice(deck.length,1)[0]);
+  }
   return {
     type: 'GET_HAND',
     payload: hand
   }
-
 }
 
 export const playCard = (card) => {
@@ -62,8 +54,16 @@ export const drawCard = (card) => {
   }
 }
 
-export const shoufleDeck = () => {
-
+export const shoufleDeck = (deck) => {
+  let deckLength = deck.length
+  let newDeck = [];
+  for(let i=0; i< deckLength; i++){
+    newDeck.push(deck.splice(Math.floor(Math.random()*deck.length),1)[0]);
+  }
+  return {
+    type: 'GET_DECK',
+    payload: newDeck
+  }
 }
 
 export const shoutUNO = () => {

@@ -12,7 +12,6 @@ export default (state = initialState, action) => {
       return {...state, isActive: false};
     case 'WINNER':
       return {...state, isWinner: true};
-    
     default:
       return state
   }

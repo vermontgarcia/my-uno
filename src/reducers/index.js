@@ -6,7 +6,7 @@ import DrawPileReducers from './drawPileReducers';
 const rootReducer = combineReducers({
   auth: AuthReducers,
   hand: HandReducers,
-  drawPile: DrawPileReducers,
+  deck: DrawPileReducers,
 })
 
 export default rootReducer;
