@@ -43,7 +43,6 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
-
   },
   textStyle: {
     color: 'white',

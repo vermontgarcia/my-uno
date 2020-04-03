@@ -12,7 +12,7 @@ class Hand extends Component {
       modalVisible : true,
     };
   }
- 
+
   onPressHandler = (index) => {
     console.log('Play Card =====>', index)
     //let currentHand = this.props.hand;
@@ -40,18 +40,28 @@ class Hand extends Component {
                   centerContent={true}
                 >
                   {this.props.hand.map((card, index)=>
-                    <Card key={index} card={card} onPressHandler={onPressHandler} index={index}/>
+                    <Card key={index} onPressHandler={this.props.playCard.bind(this)} card={card}/>
                     )}
                 </ScrollView>
               </View>
-              <TouchableHighlight
-                style={styles.playCardButton}
-                onPress={()=>{
-                  this.setState({modalVisible: !this.state.modalVisible})
-                }}
-              >
-                <Text style={styles.textStyle}>Hide Hand</Text>
-              </TouchableHighlight>
+
+              {this.props.hand.length === 0 ?
+                <TouchableHighlight
+                  style={styles.playCardButton}
+                  onPress={this.props.getHand}
+                >
+                  <Text style={styles.textStyle} >Get Hand</Text>
+                </TouchableHighlight>
+                :
+                <TouchableHighlight
+                  style={styles.playCardButton}
+                  onPress={()=>{
+                    this.setState({modalVisible: !this.state.modalVisible})
+                  }}
+                >
+                  <Text style={styles.textStyle}>Hide Hand</Text>
+                </TouchableHighlight>
+              }
             </View>
           </View>
         </Modal>
@@ -70,8 +80,8 @@ class Hand extends Component {
 
 const mapStateToProps = (state) => {
   return{
-    hand: state.hand,
-    deck: state.deck
+    hand: state.deck.hand,
+    deck: state.deck.deck
   }
 }
 

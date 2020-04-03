@@ -14,12 +14,8 @@ import { deck } from '../config/deck';
 class Table extends Component {
 
   componentDidMount() {
-
-
     firebase.initializeApp(firebaseConfig);
     this.props.login();
-    this.props.shoufleDeck(deck);
-    this.props.getHand(this.props.deck);
   }
 
   render() {
@@ -28,7 +24,7 @@ class Table extends Component {
         <GameStatus name={this.props.name} />
         <DrawPile />
         <DiscarPile />
-        <Hand hand={this.props.hand} />
+        <Hand />
       </View>
     )
   }
@@ -39,8 +35,9 @@ const mapStateToProps = (state)=>{
     name: state.auth.name,
     userId: state.auth.userId,
     user: state.auth.user,
-    hand: state.hand,
-    deck: state.deck,
+    hand: state.deck.hand,
+    deck: state.deck.deck,
+    discardPile: state.deck.discardPile,
   }
 }
 

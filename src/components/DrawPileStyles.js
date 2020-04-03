@@ -16,5 +16,16 @@ export const styles = StyleSheet.create({
   cardImage: {
     width: 80,
     height: 120,
-  }
+  },
+  playCardButton: {
+    backgroundColor: '#2196f3',
+    borderRadius: 20,
+    padding: 10,
+    elevation: 2,
+  },
+  textStyle: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });

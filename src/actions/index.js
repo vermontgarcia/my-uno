@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import { deck } from '../config/deck';
 
 export const authInputChange = ({ field, value }) => {
   return {
@@ -27,34 +28,28 @@ export const login = () => {
   }
 }
 
-export const getHand = (deck) => {
-  let hand = []
-  for (let i=0; i<7; i++){
-    hand.push(deck.splice(deck.length,1)[0]);
-  }
+export const getHand = () => {
+  console.log('Action getting hand ' )
   return {
     type: 'GET_HAND',
-    payload: hand
   }
 }
 
-export const playCard = (card) => {
-  console.log('Action Play Card')
+export const playCard = (e) => {
+  console.log('Action Play Card', e)
   return {
     type: 'PLAY_CARD',
-    payload: card
   }
 }
 
-export const drawCard = (card) => {
+export const drawCard = () => {
   console.log('Action Draw Card')
   return {
     type: 'DRAW_CARD',
-    payload: card
   }
 }
 
-export const shoufleDeck = (deck) => {
+export const shoufleDeck = () => {
   let deckLength = deck.length
   let newDeck = [];
   for(let i=0; i< deckLength; i++){
@@ -64,6 +59,13 @@ export const shoufleDeck = (deck) => {
     type: 'GET_DECK',
     payload: newDeck
   }
+}
+
+export const startGame = () => {
+  return {
+    type: 'START_GAME',
+  }
+
 }
 
 export const shoutUNO = () => {
