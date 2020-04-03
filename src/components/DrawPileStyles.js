@@ -22,6 +22,7 @@ export const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
+    zIndex: 100,
   },
   textStyle: {
     color: 'white',

@@ -5,5 +5,6 @@ export const styles = StyleSheet.create({
     width: 80,
     height: 120,
     margin: 5,
+    zIndex: 100,
   }
 });

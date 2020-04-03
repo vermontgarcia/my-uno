@@ -19,10 +19,16 @@ export default (state = initialState, action) => {
       }
       return {...state, deck: deck, hand: hand};
     case 'PLAY_CARD':
-      discardPile.unshift(hand.shift());
+      discardPile.unshift(hand.splice(action.payload, 1)[0]);
       return {...state, hand: hand, discardPile: discardPile};
-    case 'SHOUFLE_DECK':
-      return state;
+    case 'SHOUFLE_DISCARD_PILE':
+      let deckLength = discardPile.length
+      let card = discardPile.shift();
+      for(let i=1; i< deckLength; i++){
+        deck.push(discardPile.splice(Math.floor(Math.random()*discardPile.length),1)[0]);
+      }
+      discardPile.unshift(card);
+      return {...state, deck: deck, discardPile: discardPile};
     case 'DRAW_CARD':
       hand.unshift(deck.pop());
       return {...state, deck: deck, hand: hand};

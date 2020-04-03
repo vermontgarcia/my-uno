@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Blank Template",
+    "name": "My UNO",
     "slug": "my-uno-js",
     "privacy": "public",
     "sdkVersion": "36.0.0",
@@ -25,6 +25,7 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "UNO the classic game"
   }
 }

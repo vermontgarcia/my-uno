@@ -29,27 +29,32 @@ export const login = () => {
 }
 
 export const getHand = () => {
-  console.log('Action getting hand ' )
   return {
     type: 'GET_HAND',
   }
 }
 
-export const playCard = (e) => {
-  console.log('Action Play Card', e)
+export const playCard = (index) => {
   return {
     type: 'PLAY_CARD',
+    payload: index,
   }
 }
 
 export const drawCard = () => {
-  console.log('Action Draw Card')
   return {
     type: 'DRAW_CARD',
   }
 }
 
 export const shoufleDeck = () => {
+
+  if(deck.length === 0){
+    return {
+      type: 'SHOUFLE_DISCARD_PILE',
+    }
+  }
+
   let deckLength = deck.length
   let newDeck = [];
   for(let i=0; i< deckLength; i++){

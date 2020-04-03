@@ -9,28 +9,18 @@ class Hand extends Component {
   constructor(props) {
     super(props);
     this.state = { 
-      modalVisible : true,
+      modalVisible : false,
     };
-  }
-
-  onPressHandler = (index) => {
-    console.log('Play Card =====>', index)
-    //let currentHand = this.props.hand;
-    //currentHand.splice(index, 1);
-    //setHand(currentHand);
-    this.setState({modalVisible: !this.state.modalVisible});
   }
 
   render(){
     return(
       <View style={styles.container}>
         <Modal
+          style={styles.modalVisible}
           animationType='slide'
           transparent={true}
           visible={this.state.modalVisible}
-          onDismiss={()=>{
-            Alert.alert('Card has been played')
-          }}
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
@@ -40,7 +30,7 @@ class Hand extends Component {
                   centerContent={true}
                 >
                   {this.props.hand.map((card, index)=>
-                    <Card key={index} onPressHandler={this.props.playCard.bind(this)} card={card}/>
+                    <Card key={index} onPressHandler={this.props.playCard.bind(this)} card={card} index={index}/>
                     )}
                 </ScrollView>
               </View>
