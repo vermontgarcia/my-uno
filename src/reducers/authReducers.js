@@ -1,6 +1,6 @@
 const initialState = {
   userId: '',
-  name: 'Guest',
+  name: 'VG',
   loginErrorMsg: '',
   user: {},
   username: ''

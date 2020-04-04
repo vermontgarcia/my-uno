@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, TouchableHighlight, Modal, Alert, ScrollView } from 'react-native';
 import { styles } from './HandStyles';
 import { connect } from 'react-redux';
-import { playCard, getHand } from '../actions';
+import { playCard, getHand, drawCard } from '../actions';
 import Card from './Card';
 
 class Hand extends Component {
@@ -39,6 +39,7 @@ class Hand extends Component {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
+              <Text style={styles.textStyle} >{this.props.hand.length}</Text>
               <View style={styles.modalText}>
                 <ScrollView
                   horizontal={true}
@@ -55,12 +56,19 @@ class Hand extends Component {
               </View>
 
               {this.props.hand.length === 0 ?
-                this.props.deck.length !== 0 ?  
-                  this.renderButton('Get Hand', styles.playCardButton, this.props.getHand )
+                this.props.deck.length !== 0 ? 
+                  <View style={styles.buttonsWraper}>
+                    {this.renderButton('Get Hand', styles.playCardButton, this.props.getHand )}
+                    {this.renderButton('Draw Card', styles.playCardButton, this.props.drawCard)}
+                    {this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)}
+                  </View> 
                   :
                   this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)
                 :
-                this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)
+                <View style={styles.buttonsWraper}>
+                  {this.renderButton('Draw Card', styles.playCardButton, this.props.drawCard)}
+                  {this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)}
+                </View>
               }
             </View>
           </View>
@@ -79,4 +87,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { playCard, getHand } )(Hand);
+export default connect(mapStateToProps, { playCard, getHand, drawCard } )(Hand);
