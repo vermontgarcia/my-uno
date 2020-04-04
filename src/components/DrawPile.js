@@ -33,8 +33,8 @@ class DrawPile extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    deck: state.deck.deck,
-    hand: state.deck.hand
+    deck: state.game.deck,
+    hand: state.game.hand
   }
 }
 

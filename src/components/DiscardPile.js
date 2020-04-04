@@ -29,7 +29,7 @@ class DiscarPile extends Component{
 
 const mapStateToProps = (state)=>{
   return{
-    discardPile: state.deck.discardPile
+    discardPile: state.game.discardPile
   }
 }
 

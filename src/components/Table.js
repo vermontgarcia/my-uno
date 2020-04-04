@@ -35,9 +35,9 @@ const mapStateToProps = (state)=>{
     name: state.auth.name,
     userId: state.auth.userId,
     user: state.auth.user,
-    hand: state.deck.hand,
-    deck: state.deck.deck,
-    discardPile: state.deck.discardPile,
+    hand: state.game.hand,
+    deck: state.game.deck,
+    discardPile: state.game.discardPile,
   }
 }
 

@@ -70,8 +70,8 @@ class Hand extends Component {
 
 const mapStateToProps = (state) => {
   return{
-    hand: state.deck.hand,
-    deck: state.deck.deck
+    hand: state.game.hand,
+    deck: state.game.deck
   }
 }
 
