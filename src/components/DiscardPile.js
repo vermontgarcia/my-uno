@@ -9,13 +9,16 @@ class DiscarPile extends Component{
   render(){
     return (
       <View style={styles.container} >
-        {this.props.discardPile.length === 0 ?
-          <TouchableHighlight
-            style={styles.playCardButton}
-            onPress={this.props.startGame}
-          >
-            <Text style={styles.textStyle} >Start Game</Text>
-          </TouchableHighlight>
+        {(this.props.discardPile.length === 0)?
+          this.props.deck.length !== 0 ?
+            <TouchableHighlight
+              style={styles.playCardButton}
+              onPress={this.props.startGame}
+            >
+              <Text style={styles.textStyle} >Start Game</Text>
+            </TouchableHighlight>
+            :
+            <></>
           :
           <Image
             style={styles.cardImage}
@@ -29,7 +32,8 @@ class DiscarPile extends Component{
 
 const mapStateToProps = (state)=>{
   return{
-    discardPile: state.game.discardPile
+    discardPile: state.game.discardPile,
+    deck: state.game.deck,
   }
 }
 

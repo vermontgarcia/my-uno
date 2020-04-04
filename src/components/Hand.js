@@ -13,6 +13,21 @@ class Hand extends Component {
     };
   }
 
+  toggleModal = () => {
+    this.setState({modalVisible: !this.state.modalVisible});
+  }
+
+  renderButton(text, style, onPress){
+    return (
+      <TouchableHighlight
+          style={style}
+          onPress={onPress}
+        >
+          <Text style={styles.textStyle}>{text}</Text>
+        </TouchableHighlight>
+    )
+  }
+
   render(){
     return(
       <View style={styles.container}>
@@ -30,39 +45,28 @@ class Hand extends Component {
                   centerContent={true}
                 >
                   {this.props.hand.map((card, index)=>
-                    <Card key={index} onPressHandler={this.props.playCard.bind(this)} card={card} index={index}/>
+                    <Card key={index}
+                      onPressHandler={this.props.playCard.bind(this)}
+                      card={card}
+                      index={index}
+                    />
                     )}
                 </ScrollView>
               </View>
 
               {this.props.hand.length === 0 ?
-                <TouchableHighlight
-                  style={styles.playCardButton}
-                  onPress={this.props.getHand}
-                >
-                  <Text style={styles.textStyle} >Get Hand</Text>
-                </TouchableHighlight>
+                this.props.deck.length !== 0 ?  
+                  this.renderButton('Get Hand', styles.playCardButton, this.props.getHand )
+                  :
+                  this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)
                 :
-                <TouchableHighlight
-                  style={styles.playCardButton}
-                  onPress={()=>{
-                    this.setState({modalVisible: !this.state.modalVisible})
-                  }}
-                >
-                  <Text style={styles.textStyle}>Hide Hand</Text>
-                </TouchableHighlight>
+                this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)
               }
             </View>
           </View>
         </Modal>
-        <TouchableHighlight
-          style={styles.showHandButton}
-          onPress={()=>{
-            this.setState({modalVisible: true});
-          }}
-        >
-          <Text style={styles.textStyle}>Show Hand</Text>
-        </TouchableHighlight>
+        {this.renderButton('Show Hand', styles.showHandButton,this.toggleModal)}
+        
       </View>
     )
   }
