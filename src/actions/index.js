@@ -1,5 +1,6 @@
-import firebase from 'firebase';
+import firebase, { database } from 'firebase';
 import { deck } from '../config/deck';
+
 
 export const authInputChange = ({ field, value }) => {
   return {
@@ -9,6 +10,7 @@ export const authInputChange = ({ field, value }) => {
 }
 
 export const login = () => {
+  console.log('Loggin in')
   return (dispatch) => {
     firebase.auth()
       .signInAnonymously()
@@ -29,8 +31,16 @@ export const login = () => {
 }
 
 export const getHand = () => {
-  return {
-    type: 'GET_HAND',
+  return (dispatch) => {
+    database()
+      .ref(`/gameRooms/myRoom/-M48FmYxmRBD6GEKQoVG/newHand`)
+      .on('value', snapshot => {
+        console.log('Hand Length =====> ', snapshot.val().length)
+        return dispatch ({
+          type: 'GET_HAND',
+          payload: snapshot.val(),
+        })
+      })
   }
 }
 
@@ -60,13 +70,27 @@ export const shoufleDeck = () => {
   for(let i=0; i< deckLength; i++){
     newDeck.push(deck.splice(Math.floor(Math.random()*deck.length),1)[0]);
   }
-  return {
-    type: 'GET_DECK',
-    payload: newDeck
-  }
+
+  //const { uid } = firebase.auth().currentUser;
+
+  return (dispatch) => {
+    firebase.database().ref(`/gameRooms/myRoom`)
+      .push({ deck: newDeck })
+      .then(() => dispatch({ type: 'GET_DECK', payload: newDeck  }));
+  };
+
+
+  // return {
+  //   type: 'GET_DECK',
+  //   payload: newDeck
+  // }
 }
 
 export const startGame = () => {
+
+  firebase.database
+
+
   return {
     type: 'START_GAME',
   }
@@ -79,4 +103,26 @@ export const shoutUNO = () => {
 
 export const endGame = () => {
 
+}
+
+
+export const updateDeck = (deck) => {
+  return {
+    type: 'UPDATE_DECK',
+    payload: deck,
+  }
+}
+
+export const updateHand = (hand) => {
+  return {
+    type: 'UPDATE_HAND',
+    payload: hand,
+  }
+}
+
+export const updateDiscardPile = (discardPile) => {
+  return {
+    type: 'UPDATE_DISCARD_PILE',
+    payload: discardPile,
+  }
 }
