@@ -1,14 +1,18 @@
 import React from 'react';
-import { StyleSheet, StatusBar } from 'react-native';
-
+import { StatusBar } from 'react-native';
 import { Provider } from "react-redux";
 import { createStore, applyMiddleware } from "redux";
 import reducers from './src/reducers';
 import ReduxThunk from 'redux-thunk'
 import Table from './src/components/Table';
+import firebase from 'firebase'
+import { firebaseConfig } from './src/config/appConfig'; 
 
 export default function App(){
+
+  console.log('Initializon APP')
   
+  firebase.initializeApp(firebaseConfig);
   const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
   return (
