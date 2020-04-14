@@ -14,10 +14,10 @@ export default (state = initialState, action) => {
     case 'GET_DECK':
       return {...state, deck: action.payload};
     case 'GET_HAND':
-      for (let i=0; i<7; i++){
-        hand.push(deck.pop());
-      }
-      return {...state, deck: deck, hand: hand};
+      // for (let i=0; i<7; i++){
+      //   hand.push(deck.pop());
+      // }
+      return {...state, deck: deck, hand: action.payload};
     case 'PLAY_CARD':
       discardPile.unshift(hand.splice(action.payload, 1)[0]);
       return {...state, hand: hand, discardPile: discardPile};
@@ -35,6 +35,12 @@ export default (state = initialState, action) => {
     case 'START_GAME':
       discardPile.unshift(deck.pop());
       return {...state, deck: deck, discardPile: discardPile};
+    case 'UPDATE_DECK':
+      return {...state, deck: action.payload}
+    case 'UPDATE_HAND':
+      return {...state, hand: action.payload}
+    case 'UPDATE_DISCARD_PILE':
+      return {...state, discardPile: action.payload}
     default:
       return state
   }
