@@ -46,8 +46,8 @@ class Hand extends Component {
                   centerContent={true}
                 >
                   {this.props.hand.map((card, index)=>
-                    <Card key={index}
-                      onPressHandler={this.props.playCard.bind(this)}
+                    <Card
+                      key={index}
                       card={card}
                       index={index}
                     />
