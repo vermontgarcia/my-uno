@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Text, View, TouchableHighlight, Modal, Alert, ScrollView } from 'react-native';
 import { styles } from './HandStyles';
 import { connect } from 'react-redux';
-import { playCard, getHand, drawCard } from '../actions';
+import { playCard, getHand, drawCard, updateHand } from '../actions';
 import Card from './Card';
 
 class Hand extends Component {
@@ -26,6 +26,12 @@ class Hand extends Component {
           <Text style={styles.textStyle}>{text}</Text>
         </TouchableHighlight>
     )
+  }
+
+  handleGetHand(){
+    const { deck, hand, userId } = this.props;
+    console.log('Handle Hand ', deck.length, hand, userId)
+    this.props.getHand(deck, hand, userId);
   }
 
   render(){
@@ -58,7 +64,7 @@ class Hand extends Component {
               {this.props.hand.length === 0 ?
                 this.props.deck.length !== 0 ? 
                   <View style={styles.buttonsWraper}>
-                    {this.renderButton('Get Hand', styles.playCardButton, this.props.getHand )}
+                    {this.renderButton('Get Hand', styles.playCardButton, this.handleGetHand.bind(this) )}
                     {this.renderButton('Draw Card', styles.playCardButton, this.props.drawCard)}
                     {this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)}
                   </View> 
@@ -83,8 +89,9 @@ class Hand extends Component {
 const mapStateToProps = (state) => {
   return{
     hand: state.game.hand,
-    deck: state.game.deck
+    deck: state.game.deck,
+    userId: state.auth.userId,
   }
 }
 
-export default connect(mapStateToProps, { playCard, getHand, drawCard } )(Hand);
+export default connect(mapStateToProps, { playCard, getHand, drawCard, updateHand } )(Hand);

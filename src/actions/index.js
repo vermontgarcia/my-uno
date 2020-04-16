@@ -1,6 +1,12 @@
-import firebase, { database } from 'firebase';
+import firebase from '../config/firebase';
 import { deck } from '../config/deck';
 
+const room = 'myRoom'
+const rootRef = firebase.database().ref().child(`gameRooms/`);
+const tableRef = rootRef.child(room);
+
+const deckRef = tableRef.child('deck');
+const discardPileRef = tableRef.child('discardPile');
 
 export const authInputChange = ({ field, value }) => {
   return {
@@ -9,40 +15,64 @@ export const authInputChange = ({ field, value }) => {
   }
 }
 
-export const login = () => {
+export const login = (user) => {
   console.log('Loggin in')
-  return (dispatch) => {
-    firebase.auth()
-      .signInAnonymously()
-      .then(user=>{
-        return dispatch({
-          type: 'LOGIN_SUCCESS',
-          payload: user
-        })
-      })
-      .catch(error => {
-        return dispatch({
-          type: 'LOGIN_FAILURE',
-          payload: error.message
-        })
-      }
-    );
+
+  return {
+    type: 'LOGIN_SUCCESS',
+    payload: user,
   }
+
+
+
+  // return (dispatch) => {
+  //   firebase.auth()
+  //     .signInAnonymously()
+  //     .then(user=>{
+  //       return dispatch({
+  //         type: 'LOGIN_SUCCESS',
+  //         payload: user
+  //       })
+  //     })
+  //     .catch(error => {
+  //       return dispatch({
+  //         type: 'LOGIN_FAILURE',
+  //         payload: error.message
+  //       })
+  //     }
+  //   );
+  // }
 }
 
-export const getHand = () => {
-  return (dispatch) => {
-    database()
-      .ref(`/gameRooms/myRoom/-M48FmYxmRBD6GEKQoVG/newHand`)
-      .on('value', snapshot => {
-        console.log('Hand Length =====> ', snapshot.val().length)
-        return dispatch ({
-          type: 'GET_HAND',
-          payload: snapshot.val(),
-        })
-      })
+export const getHand = (oldDeck, oldHand, userId) => {
+
+  console.log('Action getHand' , oldDeck.length, oldHand.length, userId )
+
+  let deck = [...oldDeck]
+  let hand = [...oldHand]
+  
+  for(let i = 0; i < 7; i++){
+    console.log('Action For')
+    hand.push(deck.pop())
+    console.log('Getting Hand', deck.length, hand.length, userId)
   }
+
+  console.log('Getting Hand', deck.length, hand.length, userId)
+
+  const handRef = tableRef.child(userId).child('hand');
+  console.log('Action handRef', handRef)
+  
+  deckRef.set({deck})
+  handRef.set({hand})
+  
+  return ({
+      type: 'GET_HAND',
+      payload: { deck, hand },
+  });
+  
+
 }
+
 
 export const playCard = (index) => {
   return {
@@ -52,6 +82,9 @@ export const playCard = (index) => {
 }
 
 export const drawCard = () => {
+  //   type: 'LOGIN_FAILURE',
+  //   payload: error.message
+  // })
   return {
     type: 'DRAW_CARD',
   }
@@ -74,16 +107,10 @@ export const shoufleDeck = () => {
   //const { uid } = firebase.auth().currentUser;
 
   return (dispatch) => {
-    firebase.database().ref(`/gameRooms/myRoom`)
-      .push({ deck: newDeck })
+    deckRef.set({deck: newDeck})
       .then(() => dispatch({ type: 'GET_DECK', payload: newDeck  }));
   };
 
-
-  // return {
-  //   type: 'GET_DECK',
-  //   payload: newDeck
-  // }
 }
 
 export const startGame = () => {
@@ -107,6 +134,7 @@ export const endGame = () => {
 
 
 export const updateDeck = (deck) => {
+  console.log('Action Updating Deck', deck)
   return {
     type: 'UPDATE_DECK',
     payload: deck,
@@ -114,6 +142,7 @@ export const updateDeck = (deck) => {
 }
 
 export const updateHand = (hand) => {
+  console.log('Action Updating Hand', hand)
   return {
     type: 'UPDATE_HAND',
     payload: hand,
@@ -121,6 +150,7 @@ export const updateHand = (hand) => {
 }
 
 export const updateDiscardPile = (discardPile) => {
+  console.log('Action Updating DiscardPile', discardPile)
   return {
     type: 'UPDATE_DISCARD_PILE',
     payload: discardPile,

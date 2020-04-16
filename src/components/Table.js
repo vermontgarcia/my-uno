@@ -7,31 +7,53 @@ import DiscarPile from './DiscardPile';
 import Hand from './Hand';
 import { styles } from './TableStyles';
 import { login, shoufleDeck, getHand, updateDeck, updateHand, updateDiscardPile } from '../actions';
-import firebase from 'firebase';
+import firebase from '../config/firebase';
+
+const room = 'myRoom'
+const rootRef = firebase.database().ref().child(`gameRooms/`);
+const tableRef = rootRef.child(room);
+
+const deckRef = tableRef.child('deck').child('deck');
+const discardPileRef = tableRef.child('discardPile').child('discardPile');
 
 class Table extends Component {
-
+  
   componentDidMount() {
-    console.log('DidMount')
-    //this.props.login();
 
-    // const room = 'myRoom'
-    // const rootRef = firebase.database().ref().child(`gameRooms/${room}`);
+    const { userId } = this.props
+    
+    firebase.auth()
+    .signInAnonymously()
+    .then(user=>{
 
-    // const deckRef = rootRef.child('-M48FmYxmRBD6GEKQoVG/newDeck');
-    // deckRef.on('value', snapshot => {
-    //   updateDeck(snapshot.val())
-    // });
-    // const handRef = rootRef.child('-M48FmYxmRBD6GEKQoVG/newHand');
-    // handRef.on('value', snapshot => {
-    //   updateHand(snapshot.val())
-    // });
-    // const discardPileRef = rootRef.child('-M48FmYxmRBD6GEKQoVG/newDiscardPile');
-    // discardPileRef.on('value', snapshot => {
-    //   updateDiscardPile(snapshot.val())
-    // });
+      //console.log('Table Did Mount User', user.user.uid)
+
+      const handUserRef = tableRef.child(user.user.uid);
+      const handRef = handUserRef.child(`hand`).child(`hand`);
+      
+      //console.log('Hand Ref =====> ', handRef)
+      handRef.on('value', snapshot => {
+        snapshot.val() === null ? updateHand([], this.props.userId) : this.props.updateHand(snapshot.val())
+      });
+
+      this.props.login(user);
+    })
+    .catch(error => {
+    }
+  );
+    
+    //console.log('DidMount =====>', userId, deckRef )
+    
+    deckRef.on('value', snapshot => {
+      //console.log('Snap ====> ', snapshot.val().length)
+      snapshot.val() === null ? updateDeck([]) : this.props.updateDeck(snapshot.val())
+    });
+    
+    discardPileRef.on('value', snapshot => {
+      snapshot.val() === null ? updateDiscardPile([]) : this.props.updateDiscardPile(snapshot.val())
+    });
   }
-
+  
   render() {
     return (
       <View style={styles.container}>
@@ -55,4 +77,4 @@ const mapStateToProps = (state)=>{
   }
 }
 
-export default connect(mapStateToProps, { login, shoufleDeck, getHand })(Table);
+export default connect(mapStateToProps, { login, shoufleDeck, getHand, updateDeck, updateHand, updateDiscardPile })(Table);

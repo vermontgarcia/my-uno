@@ -14,10 +14,7 @@ export default (state = initialState, action) => {
     case 'GET_DECK':
       return {...state, deck: action.payload};
     case 'GET_HAND':
-      // for (let i=0; i<7; i++){
-      //   hand.push(deck.pop());
-      // }
-      return {...state, deck: deck, hand: action.payload};
+      return {...state, deck: action.payload.deck, hand: action.payload.hand};
     case 'PLAY_CARD':
       discardPile.unshift(hand.splice(action.payload, 1)[0]);
       return {...state, hand: hand, discardPile: discardPile};
