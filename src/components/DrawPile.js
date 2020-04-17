@@ -4,21 +4,33 @@ import { styles } from './DrawPileStyles';
 import { connect } from 'react-redux';
 import { drawCard, shoufleDeck } from '../actions';
 
+ 
 
 class DrawPile extends Component {
+
+  handleDrawCard = () => {
+    const { deck, hand, userId, drawCard } = this.props;
+    drawCard(deck, hand, userId);
+  }
+
+  handleShoufleDeck = () => {
+   const { discardPile, shoufleDeck } = this.props;
+   shoufleDeck(discardPile);
+  }
+
   render(){
     return (
       <View style={styles.container}>
         {this.props.deck.length === 0 ?
           <TouchableHighlight
             style={styles.playCardButton}
-            onPress={this.props.shoufleDeck}
+            onPress={this.handleShoufleDeck}
           >
             <Text style={styles.textStyle} >Shoufle Deck</Text>
           </TouchableHighlight>
           :
           <TouchableHighlight
-            onPress={this.props.drawCard}
+            onPress={this.handleDrawCard}
           >
             <Image
               style={styles.cardImage}
@@ -34,7 +46,9 @@ class DrawPile extends Component {
 const mapStateToProps = (state) => {
   return {
     deck: state.game.deck,
-    hand: state.game.hand
+    hand: state.game.hand,
+    userId: state.auth.userId,
+    discardPile: state.game.discardPile,
   }
 }
 

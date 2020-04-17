@@ -6,6 +6,11 @@ import { startGame } from '../actions';
 
 class DiscarPile extends Component{
 
+  handleStartGame(){
+    const { deck, discardPile, startGame } = this.props;
+    startGame(deck, discardPile);
+  }
+
   render(){
     return (
       <View style={styles.container} >
@@ -13,7 +18,7 @@ class DiscarPile extends Component{
           this.props.deck.length !== 0 ?
             <TouchableHighlight
               style={styles.playCardButton}
-              onPress={this.props.startGame}
+              onPress={this.handleStartGame.bind(this)}
             >
               <Text style={styles.textStyle} >Start Game</Text>
             </TouchableHighlight>

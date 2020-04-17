@@ -20,37 +20,28 @@ class Table extends Component {
   
   componentDidMount() {
 
-    const { userId } = this.props
-    
     firebase.auth()
     .signInAnonymously()
     .then(user=>{
 
-      //console.log('Table Did Mount User', user.user.uid)
-
       const handUserRef = tableRef.child(user.user.uid);
       const handRef = handUserRef.child(`hand`).child(`hand`);
       
-      //console.log('Hand Ref =====> ', handRef)
       handRef.on('value', snapshot => {
-        snapshot.val() === null ? updateHand([], this.props.userId) : this.props.updateHand(snapshot.val())
+        snapshot.val() === null ? this.props.updateHand([], this.props.userId) : this.props.updateHand(snapshot.val())
       });
-
       this.props.login(user);
     })
     .catch(error => {
     }
   );
     
-    //console.log('DidMount =====>', userId, deckRef )
-    
     deckRef.on('value', snapshot => {
-      //console.log('Snap ====> ', snapshot.val().length)
-      snapshot.val() === null ? updateDeck([]) : this.props.updateDeck(snapshot.val())
+      snapshot.val() === null ? this.props.updateDeck([]) : this.props.updateDeck(snapshot.val())
     });
     
     discardPileRef.on('value', snapshot => {
-      snapshot.val() === null ? updateDiscardPile([]) : this.props.updateDiscardPile(snapshot.val())
+      snapshot.val() === null ? this.props.updateDiscardPile([]) : this.props.updateDiscardPile(snapshot.val())
     });
   }
   

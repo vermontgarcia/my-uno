@@ -6,17 +6,16 @@ import { playCard } from '../actions';
 
 class Card extends Component {
 
-
-  playCard(){
-    const { index } = this.props
-    this.props.playCard(index);
+  handlePlayCard = () => {
+    const { index, hand, userId, discardPile, playCard } = this.props
+    playCard(hand, userId, index, discardPile);
   }
 
   render(){
     return (
       <View>
         <TouchableHighlight
-          onPress={this.playCard.bind(this)}
+          onPress={this.handlePlayCard}
         >
           <Image
             style={styles.cardImage}
@@ -28,4 +27,12 @@ class Card extends Component {
   }
 }
 
-export default connect(null, { playCard })(Card);
+const mapStateToProps = (state) => {
+  return{
+    hand: state.game.hand,
+    discardPile: state.game.discardPile,
+    userId: state.auth.userId,
+  }
+}
+
+export default connect(mapStateToProps, { playCard })(Card);

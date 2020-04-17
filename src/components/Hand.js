@@ -29,9 +29,14 @@ class Hand extends Component {
   }
 
   handleGetHand(){
-    const { deck, hand, userId } = this.props;
-    console.log('Handle Hand ', deck.length, hand, userId)
-    this.props.getHand(deck, hand, userId);
+    const { deck, hand, userId, getHand } = this.props;
+    getHand(deck, hand, userId);
+  }
+
+  handleDrawCard(){
+    const { deck, hand, userId, drawCard } = this.props;
+    drawCard(deck, hand, userId);
+
   }
 
   render(){
@@ -65,14 +70,14 @@ class Hand extends Component {
                 this.props.deck.length !== 0 ? 
                   <View style={styles.buttonsWraper}>
                     {this.renderButton('Get Hand', styles.playCardButton, this.handleGetHand.bind(this) )}
-                    {this.renderButton('Draw Card', styles.playCardButton, this.props.drawCard)}
+                    {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard.bind(this))}
                     {this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)}
                   </View> 
                   :
                   this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)
                 :
                 <View style={styles.buttonsWraper}>
-                  {this.renderButton('Draw Card', styles.playCardButton, this.props.drawCard)}
+                  {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard.bind(this))}
                   {this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)}
                 </View>
               }
