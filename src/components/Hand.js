@@ -28,12 +28,12 @@ class Hand extends Component {
     )
   }
 
-  handleGetHand(){
+  handleGetHand = () => {
     const { deck, hand, userId, getHand } = this.props;
     getHand(deck, hand, userId);
   }
 
-  handleDrawCard(){
+  handleDrawCard = () => {
     const { deck, hand, userId, drawCard } = this.props;
     drawCard(deck, hand, userId);
 
@@ -69,22 +69,22 @@ class Hand extends Component {
               {this.props.hand.length === 0 ?
                 this.props.deck.length !== 0 ? 
                   <View style={styles.buttonsWraper}>
-                    {this.renderButton('Get Hand', styles.playCardButton, this.handleGetHand.bind(this) )}
-                    {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard.bind(this))}
+                    {this.renderButton('Get Hand', styles.playCardButton, this.handleGetHand)}
+                    {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard)}
                     {this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)}
                   </View> 
                   :
                   this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)
                 :
                 <View style={styles.buttonsWraper}>
-                  {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard.bind(this))}
+                  {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard)}
                   {this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)}
                 </View>
               }
             </View>
           </View>
         </Modal>
-        {this.renderButton('Show Hand', styles.showHandButton,this.toggleModal)}
+        {this.renderButton('Show Hand', styles.showHandButton, this.toggleModal)}
         
       </View>
     )

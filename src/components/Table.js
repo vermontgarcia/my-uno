@@ -18,7 +18,7 @@ const discardPileRef = tableRef.child('discardPile');
 
 class Table extends Component {
   
-  componentDidMount() {
+  componentDidMount(){
 
     firebase.auth()
     .signInAnonymously()
