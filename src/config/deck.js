@@ -1,4 +1,4 @@
-export const deck = [
+export const initialDeck = [
   { id: 1, name:'zerored', source: require('../../assets/zerored.png') },
 { id: 2, name:'onered', source: require('../../assets/onered.png') },
 { id: 3, name:'onered', source: require('../../assets/onered.png') },

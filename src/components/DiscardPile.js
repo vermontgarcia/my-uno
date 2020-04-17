@@ -12,10 +12,11 @@ class DiscarPile extends Component{
   }
 
   render(){
+    const { discardPile, deck } = this.props
     return (
       <View style={styles.container} >
-        {(this.props.discardPile.length === 0)?
-          this.props.deck.length !== 0 ?
+        {(discardPile.length === 0)?
+          deck.length !== 0 ?
             <TouchableHighlight
               style={styles.playCardButton}
               onPress={this.handleStartGame.bind(this)}
@@ -27,7 +28,7 @@ class DiscarPile extends Component{
           :
           <Image
             style={styles.cardImage}
-            source={this.props.discardPile[0].source}
+            source={discardPile[discardPile.length-1].source}
           />
         }
       </View>

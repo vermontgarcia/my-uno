@@ -13,8 +13,8 @@ const room = 'myRoom'
 const rootRef = firebase.database().ref().child(`gameRooms/`);
 const tableRef = rootRef.child(room);
 
-const deckRef = tableRef.child('deck').child('deck');
-const discardPileRef = tableRef.child('discardPile').child('discardPile');
+const deckRef = tableRef.child('deck');
+const discardPileRef = tableRef.child('discardPile');
 
 class Table extends Component {
   
@@ -25,7 +25,7 @@ class Table extends Component {
     .then(user=>{
 
       const handUserRef = tableRef.child(user.user.uid);
-      const handRef = handUserRef.child(`hand`).child(`hand`);
+      const handRef = handUserRef.child(`hand`);
       
       handRef.on('value', snapshot => {
         snapshot.val() === null ? this.props.updateHand([], this.props.userId) : this.props.updateHand(snapshot.val())
