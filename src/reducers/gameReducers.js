@@ -2,6 +2,7 @@ const initialState = {
   deck: [],
   hand: [],
   discardPile: [],
+  modalVisible: false,
 }
 
 export default (state = initialState, action) => {
@@ -17,8 +18,13 @@ export default (state = initialState, action) => {
       return {...state};
     case 'DRAW_CARD':
       return {...state};
+    case 'RETURN_CARD':
+      return state;
     case 'START_GAME':
       return {...state};
+    case 'TOGGLE_MODAL':
+      let { modalVisible } = state;
+      return {...state, modalVisible: !modalVisible}
     case 'UPDATE_DECK':
       return {...state, deck: action.payload}
     case 'UPDATE_HAND':

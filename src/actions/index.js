@@ -31,7 +31,7 @@ export const getHand = (oldDeck, oldHand, userId) => {
     hand.push(deck.pop())
   }
 
-  const handRef = tableRef.child(userId).child('hand');
+  const handRef = tableRef.child('users').child(userId).child('hand');
   
   deckRef.set(deck)
   handRef.set(hand)
@@ -48,7 +48,7 @@ export const playCard = (oldHand, userId, index, oldDiscardPile) => {
 
   discardPile.push(hand.splice(index, 1)[0]);
   
-  const handRef = tableRef.child(userId).child('hand');
+  const handRef = tableRef.child('users').child(userId).child('hand');
 
   handRef.set(hand)
   discardPileRef.set(discardPile)
@@ -65,13 +65,36 @@ export const drawCard = (oldDeck, oldHand, userId) => {
 
   hand.unshift(deck.pop());
 
-  const handRef = tableRef.child(userId).child('hand');
+  const handRef = tableRef.child('users').child(userId).child('hand');
 
   deckRef.set(deck)
   handRef.set(hand)
   
   return {
     type: 'DRAW_CARD',
+  }
+}
+
+export const returnCard = (oldDiscardPile, oldHand, userId) => {
+
+  let hand = [...oldHand];
+  let discardPile = [...oldDiscardPile];
+
+  hand.unshift(discardPile.pop());
+
+  const handRef = tableRef.child('users').child(userId).child('hand');
+
+  discardPileRef.set(discardPile)
+  handRef.set(hand)
+  
+  return {
+    type: 'RETURN_CARD',
+  }
+}
+
+export const toggleModal = () => {
+  return {
+    type: 'TOGGLE_MODAL',
   }
 }
 

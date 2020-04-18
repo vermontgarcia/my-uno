@@ -24,7 +24,7 @@ class Table extends Component {
     .signInAnonymously()
     .then(user=>{
 
-      const handUserRef = tableRef.child(user.user.uid);
+      const handUserRef = tableRef.child('users').child(user.user.uid);
       handRef = handUserRef.child(`hand`);
       
       handRef.on('value', snapshot => {
@@ -55,7 +55,6 @@ class Table extends Component {
     console.log(error, errorInfo);
   }
 
-  
   render() {
     return (
       <View style={styles.container}>
@@ -79,4 +78,13 @@ const mapStateToProps = (state)=>{
   }
 }
 
-export default connect(mapStateToProps, { login, shoufleDeck, getHand, updateDeck, updateHand, updateDiscardPile })(Table);
+const mapDispatchToProps = {
+  login,
+  shoufleDeck,
+  getHand,
+  updateDeck,
+  updateHand,
+  updateDiscardPile,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Table);

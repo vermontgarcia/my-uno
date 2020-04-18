@@ -35,4 +35,8 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { playCard })(Card);
+const mapDispatchToProps = {
+  playCard,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Card);

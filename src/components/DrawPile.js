@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { Image, Text, View, TouchableHighlight } from 'react-native';
 import { styles } from './DrawPileStyles';
 import { connect } from 'react-redux';
-import { drawCard, shoufleDeck } from '../actions';
+import { drawCard, shoufleDeck, toggleModal } from '../actions';
 
  
 
 class DrawPile extends Component {
 
   handleDrawCard = () => {
-    const { deck, hand, userId, drawCard } = this.props;
+    const { deck, hand, userId, drawCard, toggleModal } = this.props;
     drawCard(deck, hand, userId);
+    toggleModal();
   }
 
   handleShoufleDeck = () => {
@@ -52,4 +53,10 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, { drawCard, shoufleDeck } )(DrawPile)
+const mapDispatchToProps = {
+  drawCard,
+  shoufleDeck,
+  toggleModal,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DrawPile)

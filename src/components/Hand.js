@@ -2,20 +2,10 @@ import React, { Component } from 'react';
 import { Text, View, TouchableHighlight, Modal, Alert, ScrollView } from 'react-native';
 import { styles } from './HandStyles';
 import { connect } from 'react-redux';
-import { playCard, getHand, drawCard, updateHand } from '../actions';
+import { playCard, getHand, drawCard, updateHand, toggleModal } from '../actions';
 import Card from './Card';
 
 class Hand extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { 
-      modalVisible : false,
-    };
-  }
-
-  toggleModal = () => {
-    this.setState({modalVisible: !this.state.modalVisible});
-  }
 
   renderButton(text, style, onPress){
     return (
@@ -36,7 +26,6 @@ class Hand extends Component {
   handleDrawCard = () => {
     const { deck, hand, userId, drawCard } = this.props;
     drawCard(deck, hand, userId);
-
   }
 
   render(){
@@ -46,7 +35,7 @@ class Hand extends Component {
           style={styles.modalVisible}
           animationType='slide'
           transparent={true}
-          visible={this.state.modalVisible}
+          visible={this.props.modalVisible}
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
@@ -71,20 +60,20 @@ class Hand extends Component {
                   <View style={styles.buttonsWraper}>
                     {this.renderButton('Get Hand', styles.playCardButton, this.handleGetHand)}
                     {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard)}
-                    {this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)}
+                    {this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)}
                   </View> 
                   :
-                  this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)
+                  this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)
                 :
                 <View style={styles.buttonsWraper}>
                   {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard)}
-                  {this.renderButton('Hide Hand', styles.playCardButton, this.toggleModal)}
+                  {this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)}
                 </View>
               }
             </View>
           </View>
         </Modal>
-        {this.renderButton('Show Hand', styles.showHandButton, this.toggleModal)}
+        {this.renderButton('Show Hand', styles.showHandButton, this.props.toggleModal)}
         
       </View>
     )
@@ -94,9 +83,18 @@ class Hand extends Component {
 const mapStateToProps = (state) => {
   return{
     hand: state.game.hand,
+    modalVisible: state.game.modalVisible,
     deck: state.game.deck,
     userId: state.auth.userId,
   }
 }
 
-export default connect(mapStateToProps, { playCard, getHand, drawCard, updateHand } )(Hand);
+const mapDispatchToProps = {
+  playCard,
+  getHand,
+  drawCard,
+  updateHand,
+  toggleModal,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps )(Hand);

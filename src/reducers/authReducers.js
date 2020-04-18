@@ -13,7 +13,6 @@ export default (state = initialState, action) => {
     case 'LOGIN_SUCCESS':
       let userId = action.payload.user.uid;
       let user = action.payload;
-      //console.log('Logged in ', userId )
       return { ...state, userId: userId, user: user  };
     case 'LOGIN_FAILURE':
       return { ...state , loginErrorMsg: action.payload};
