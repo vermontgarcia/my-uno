@@ -39,7 +39,9 @@ class Hand extends Component {
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
-              <Text style={styles.textStyle} >{this.props.hand.length}</Text>
+              <View style={styles.cardsLeftWrapper}>
+                <Text style={styles.textStyle} >{this.props.hand.length}</Text>
+              </View>
               <View style={styles.modalText}>
                 <ScrollView
                   horizontal={true}

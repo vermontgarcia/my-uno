@@ -73,5 +73,15 @@ export const styles = StyleSheet.create({
     borderColor: 'red',
     borderRadius: borderRadius,
     width: width-30,
+  },
+  cardsLeftWrapper: {
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    borderStyle: "solid",
+    borderColor: 'white',
+    borderWidth: 2,
+    borderRadius: 50,
+    padding: 5,
   }
 });
