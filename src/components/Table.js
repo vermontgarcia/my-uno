@@ -12,7 +12,7 @@ import firebase from '../config/firebase';
 const room = 'myRoom'
 const rootRef = firebase.database().ref().child(`gameRooms/`);
 const tableRef = rootRef.child(room);
-
+let handRef;
 const deckRef = tableRef.child('deck');
 const discardPileRef = tableRef.child('discardPile');
 
@@ -25,7 +25,7 @@ class Table extends Component {
     .then(user=>{
 
       const handUserRef = tableRef.child(user.user.uid);
-      const handRef = handUserRef.child(`hand`);
+      handRef = handUserRef.child(`hand`);
       
       handRef.on('value', snapshot => {
         snapshot.val() === null ? this.props.updateHand([], this.props.userId) : this.props.updateHand(snapshot.val())
@@ -44,6 +44,17 @@ class Table extends Component {
       snapshot.val() === null ? this.props.updateDiscardPile([]) : this.props.updateDiscardPile(snapshot.val())
     });
   }
+
+  componentWillUnmount(){
+    deckRef.off();
+    handRef.off();
+    discardPileRef.off();
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.log(error, errorInfo);
+  }
+
   
   render() {
     return (

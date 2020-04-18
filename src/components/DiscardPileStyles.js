@@ -15,6 +15,9 @@ export const styles = StyleSheet.create({
   cardImage: {
     width: 80,
     height: 120,
+    transform: [{
+      rotate: '40deg'
+    }],
   },
   playCardButton: {
     backgroundColor: '#2196f3',
@@ -27,4 +30,9 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  // rotateImage:{
+  //   height: 250,
+  //   width:250,
+  //   transform: [{ rotate: '40deg' }], /* change the deg (degree of rotation) between 0deg, 360deg*/
+  // },
 });

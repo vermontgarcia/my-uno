@@ -6,6 +6,9 @@ import reducers from './src/reducers';
 import ReduxThunk from 'redux-thunk'
 import Table from './src/components/Table';
 
+import { YellowBox } from 'react-native';
+YellowBox.ignoreWarnings(['Setting a timer']);
+
 export default function App(){
 
   const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
