@@ -26,6 +26,7 @@
     "ios": {
       "supportsTablet": true
     },
-    "description": "The classic UNO game at the palm of your hand!!!"
+    "description": "The classic UNO game at the palm of your hand!!!",
+    "githubUrl": "https://github.com/vermontgarcia/my-uno.git"
   }
 }
