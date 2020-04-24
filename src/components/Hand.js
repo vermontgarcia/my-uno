@@ -58,25 +58,37 @@ class Hand extends Component {
               </View>
 
               {this.props.hand.length === 0 ?
-                this.props.deck.length !== 0 ? 
+                this.props.deck.length >= 7 ? 
                   <View style={styles.buttonsWraper}>
                     {this.renderButton('Get Hand', styles.playCardButton, this.handleGetHand)}
                     {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard)}
                     {this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)}
                   </View> 
-                  :
-                  this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)
                 :
-                <View style={styles.buttonsWraper}>
-                  {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard)}
-                  {this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)}
-                </View>
+                  this.props.deck.length > 0 ? 
+                    <View style={styles.buttonsWraper}>
+                      {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard)}
+                      {this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)}
+                    </View> 
+                  :
+                    <View style={styles.buttonsWraper}>
+                      {this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)}
+                    </View>
+              :
+                this.props.deck.length > 0 ? 
+                  <View style={styles.buttonsWraper}>
+                    {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard)}
+                    {this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)}
+                  </View> 
+                :
+                  <View style={styles.buttonsWraper}>
+                    {this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)}
+                  </View>
               }
             </View>
           </View>
         </Modal>
         {this.renderButton('Show Hand', styles.showHandButton, this.props.toggleModal)}
-        
       </View>
     )
   }
