@@ -9,7 +9,7 @@ import { styles } from './TableStyles';
 import { login, shoufleDeck, getHand, updateDeck, updateHand, updateDiscardPile } from '../actions';
 import firebase from '../config/firebase';
 
-const room = 'myRoom'
+const room = 'newRoom'
 const rootRef = firebase.database().ref().child(`gameRooms/`);
 const tableRef = rootRef.child(room);
 let handRef;
@@ -59,8 +59,10 @@ class Table extends Component {
     return (
       <View style={styles.container}>
         <GameStatus name={this.props.name} />
-        <DrawPile />
-        <DiscarPile />
+        <View style={styles.container2}>
+          <DrawPile />
+          <DiscarPile />
+        </View>
         <Hand />
       </View>
     )

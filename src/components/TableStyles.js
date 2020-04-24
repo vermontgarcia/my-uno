@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { tableWidth, tableHeight } from './Dimensions';
+import { tableWidth, tableHeight, width, borderWidth, borderRadius } from './Dimensions';
 
 export const styles = StyleSheet.create({
   container: {
@@ -10,5 +10,16 @@ export const styles = StyleSheet.create({
     padding: 10,
     width: tableWidth,
     height: tableHeight,
-  }
+  },
+  container2: {
+    flex: 1,
+    width: width,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderStyle: 'solid',
+    borderWidth: borderWidth,
+    borderColor: 'red',
+    borderRadius: borderRadius,
+  },
 });

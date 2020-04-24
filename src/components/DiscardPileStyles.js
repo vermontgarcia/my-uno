@@ -1,10 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { borderRadius, width, borderWidth } from './Dimensions';
+import { borderRadius, width, borderWidth, tableHeight } from './Dimensions';
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 4,
-    width: width,
+    flex: 1,
+    width: width * 0.45,
+    height: tableHeight * 0.3,
     borderStyle: "solid",
     borderWidth: borderWidth,
     borderColor: 'red',
