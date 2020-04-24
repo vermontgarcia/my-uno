@@ -1,7 +1,7 @@
 import firebase from '../config/firebase';
 import { initialDeck } from '../config/deck';
 
-const room = 'myRoom'
+const room = 'newRoom'
 const rootRef = firebase.database().ref().child(`gameRooms/`);
 const tableRef = rootRef.child(room);
 
@@ -120,9 +120,10 @@ export const shoufleDeck = (oldDiscardPile) => {
   }
 
   let deckLength = initialDeck.length
+  let newDeck = [...initialDeck]
   let deck = [];
   for(let i=0; i< deckLength; i++){
-    deck.push(initialDeck.splice(Math.floor(Math.random()*initialDeck.length),1)[0]);
+    deck.push(newDeck.splice(Math.floor(Math.random()*newDeck.length),1)[0]);
   }
 
   return (dispatch) => {
