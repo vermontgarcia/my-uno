@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "My UNO Classic",
-    "slug": "my-uno-js",
+    "slug": "my-uno",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
