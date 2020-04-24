@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import { View, TouchableHighlight, Image } from 'react-native';
 import { styles } from './CardStyles';
 import { connect } from 'react-redux';
-import { playCard } from '../actions';
+import { playCard, toggleModal } from '../actions';
 
 class Card extends Component {
 
   handlePlayCard = () => {
-    const { index, hand, userId, discardPile, playCard } = this.props
+    const { index, hand, userId, discardPile, playCard, toggleModal } = this.props
     playCard(hand, userId, index, discardPile);
+    toggleModal();
   }
 
   render(){
@@ -37,6 +38,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = {
   playCard,
+  toggleModal,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Card);
