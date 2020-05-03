@@ -32,10 +32,9 @@ class Hand extends Component {
     return(
       <View style={styles.container}>
         <Modal
-          style={styles.modalVisible}
           animationType='slide'
           transparent={true}
-          visible={this.props.modalVisible}
+          visible={this.props.handModalVisible}
         >
           <View style={styles.centeredView}>
             <View style={styles.modalView}>
@@ -97,7 +96,7 @@ class Hand extends Component {
 const mapStateToProps = (state) => {
   return{
     hand: state.game.hand,
-    modalVisible: state.game.modalVisible,
+    handModalVisible: state.game.handModalVisible,
     deck: state.game.deck,
     userId: state.auth.userId,
   }

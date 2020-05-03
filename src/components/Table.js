@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Modal, Text, TouchableHighlight, TextInput } from 'react-native';
 import { connect } from 'react-redux';
 import GameStatus from './GameStatus';
 import DrawPile from './DrawPile';
 import DiscarPile from './DiscardPile';
 import Hand from './Hand';
 import { styles } from './TableStyles';
-import { login, shoufleDeck, getHand, updateDeck, updateHand, updateDiscardPile } from '../actions';
+import { authInputChange, login, shoufleDeck, getHand, updateDeck, updateHand, updateDiscardPile, registerName, updateUsers } from '../actions';
 import firebase from '../config/firebase';
 
 const room = 'newRoom'
 const rootRef = firebase.database().ref().child(`gameRooms/`);
 const tableRef = rootRef.child(room);
+const playersRef = tableRef.child('users');
 let handRef;
 const deckRef = tableRef.child('deck');
 const discardPileRef = tableRef.child('discardPile');
@@ -33,8 +34,13 @@ class Table extends Component {
       this.props.login(user);
     })
     .catch(error => {
-    }
-  );
+      
+    });
+
+    playersRef.on('value', snapshot => {
+      // console.log(snapshot.val())
+      snapshot.val() === null ? this.props.updateUsers({}) : this.props.updateUsers(snapshot.val())
+    })
     
     deckRef.on('value', snapshot => {
       snapshot.val() === null ? this.props.updateDeck([]) : this.props.updateDeck(snapshot.val())
@@ -43,6 +49,17 @@ class Table extends Component {
     discardPileRef.on('value', snapshot => {
       snapshot.val() === null ? this.props.updateDiscardPile([]) : this.props.updateDiscardPile(snapshot.val())
     });
+  }
+
+  handleInput = (text) => {
+    const { authInputChange} = this.props;
+    authInputChange({'field': 'name', 'value' : text})
+  }
+
+  handleRegisterName = () => {
+    const { name, userId, registerName } = this.props;
+    //console.log(name, userId )
+    registerName(name, userId)
   }
 
   componentWillUnmount(){
@@ -58,7 +75,34 @@ class Table extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <GameStatus name={this.props.name} />
+        <Modal
+          animationType='fade'
+          transparent={false}
+          visible={this.props.userModalVisible}
+        >
+          <View style={styles.centeredView}>
+            <View style={styles.modalView} >
+              <Text >
+                Please enter your name!
+              </Text>
+              <TextInput 
+                style={styles.inputStyle}
+                type='text'
+                onChangeText={this.handleInput}
+                placeholder='Name'
+                value={this.props.name}
+              />
+              <TouchableHighlight
+                style={styles.setNameButton}
+                onPress={this.handleRegisterName}
+              >
+                <Text style={styles.textStyle} >Join Game</Text>
+              </TouchableHighlight>
+            </View>
+          </View>
+
+        </Modal>
+        <GameStatus />
         <View style={styles.container2}>
           <DrawPile />
           <DiscarPile />
@@ -69,7 +113,7 @@ class Table extends Component {
   }
 }
 
-const mapStateToProps = (state)=>{
+const mapStateToProps = (state) => {
   return {
     name: state.auth.name,
     userId: state.auth.userId,
@@ -77,6 +121,7 @@ const mapStateToProps = (state)=>{
     hand: state.game.hand,
     deck: state.game.deck,
     discardPile: state.game.discardPile,
+    userModalVisible: state.auth.userModalVisible,
   }
 }
 
@@ -87,6 +132,9 @@ const mapDispatchToProps = {
   updateDeck,
   updateHand,
   updateDiscardPile,
+  authInputChange,
+  registerName,
+  updateUsers,
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Table);

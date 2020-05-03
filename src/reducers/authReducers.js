@@ -1,9 +1,10 @@
 const initialState = {
   userId: '',
-  name: 'VG',
+  name: '',
   loginErrorMsg: '',
   user: {},
-  username: ''
+  username: '',
+  userModalVisible: true,
 }
 
 export default (state = initialState, action) => {
@@ -16,6 +17,9 @@ export default (state = initialState, action) => {
       return { ...state, userId: userId, user: user  };
     case 'LOGIN_FAILURE':
       return { ...state , loginErrorMsg: action.payload};
+    case 'TOGGLE_USER_MODAL':
+        let { userModalVisible } = state;
+        return {...state, userModalVisible: !userModalVisible}
     default:
       return state;
   }

@@ -2,7 +2,8 @@ const initialState = {
   deck: [],
   hand: [],
   discardPile: [],
-  modalVisible: false,
+  handModalVisible: false,
+  players: [],
 }
 
 export default (state = initialState, action) => {
@@ -23,8 +24,10 @@ export default (state = initialState, action) => {
     case 'START_GAME':
       return {...state};
     case 'TOGGLE_MODAL':
-      let { modalVisible } = state;
-      return {...state, modalVisible: !modalVisible}
+      let { handModalVisible } = state;
+      return {...state, handModalVisible: !handModalVisible}
+    case 'UPDATE_PLAYERS':
+      return {...state, players: action.payload}
     case 'UPDATE_DECK':
       return {...state, deck: action.payload}
     case 'UPDATE_HAND':

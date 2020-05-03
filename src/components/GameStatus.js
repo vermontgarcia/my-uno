@@ -1,21 +1,28 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { styles } from './GameStatusStyles';
 import { Avatar } from 'react-native-elements';
+import { connect } from 'react-redux';
+import Player from './Player';
 
+class GameStatus extends Component {
 
-const GameStatus = ({name}) => {
-  return (
-    <View style={styles.container}>
-      <Avatar
-        size = 'medium'
-        source={{
-          uri:'https://avatars0.githubusercontent.com/u/40477541?s=460&v=4',
-        }}
-        rounded
-      />
-    </View>
-  )
+  render(){
+    const { players } = this.props;
+    return (
+      <View style={styles.container}>
+        <View style={styles.playersContainer}>
+          {this.props.players.map((player)=> <Player key={player.id} player={player} />)}
+        </View>
+      </View>
+    )
+  }
 }
 
-export default GameStatus;
+const mapStateToProps = (state) => {
+  return {
+    players: state.game.players
+  }
+}
+
+export default connect(mapStateToProps, null)(GameStatus);

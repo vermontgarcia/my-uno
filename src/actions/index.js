@@ -22,6 +22,16 @@ export const login = (user) => {
   }
 }
 
+export const registerName = (name, userId) => {
+  const nameRef = tableRef.child('users').child(userId).child('name');
+  return dispatch => {
+    nameRef.set(name)
+      .then(()=>{
+        dispatch({ type: 'TOGGLE_USER_MODAL' })
+      })
+  }
+}
+
 export const getHand = (oldDeck, oldHand, userId) => {
 
   let deck = [...oldDeck]
@@ -98,6 +108,12 @@ export const toggleModal = () => {
   }
 }
 
+export const toggleUserModal = () => {
+  return {
+    type: 'TOGGLE_USER_MODAL',
+  }
+}
+
 export const shoufleDeck = (oldDiscardPile) => {
 
   if(oldDiscardPile.length !== 0){
@@ -156,6 +172,29 @@ export const shoutUNO = () => {
 export const endGame = () => {
 
 }
+
+export const updateUsers = (playersObj) => {
+  let playerIds = []
+  let players = []
+  playerIds = Object.keys(playersObj)
+  
+  // console.log('Array Users =====> ', userIds)
+
+  playerIds.forEach(id => {
+    // console.log(playersObj[id].name, playersObj[id].hand ? playersObj[id].hand.length : 0)
+    let user={}
+    user.id = id
+    user.name = playersObj[id].name
+    user.hand = playersObj[id].hand
+    players.push(user)
+  })
+  // console.log(players)
+  return {
+    type: 'UPDATE_PLAYERS',
+    payload: players,
+  }
+}
+
 
 export const updateDeck = (deck) => {
   return {

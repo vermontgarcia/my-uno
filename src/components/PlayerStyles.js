@@ -8,13 +8,12 @@ export const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderStyle: 'solid',
-    //////
     borderWidth: borderWidth,
     borderColor: 'red',
     borderRadius: borderRadius,
   },
-  playersContainer: {
-    flexDirection: 'row'
+  cardImage: {
+    width: 80 * 0.3,
+    height: 120 * 0.3,
   },
-
 });
