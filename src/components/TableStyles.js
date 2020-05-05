@@ -3,10 +3,10 @@ import { tableWidth, tableHeight, width, height, borderWidth, borderRadius } fro
 
 export const styles = StyleSheet.create({
   container: {
-    flex:1,
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: 'lightgreen' ,
+    backgroundColor: 'lightgreen',
     padding: 10,
     width: tableWidth,
     height: tableHeight,
@@ -76,8 +76,8 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    width: width-30,
-    height: height*.5,
+    width: width - 30,
+    height: height * .5,
     //////////
     borderColor: 'red',
     borderStyle: 'solid',

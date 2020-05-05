@@ -8,18 +8,18 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  switch(action.type){
+  switch (action.type) {
     case 'AUTH_INPUT_CHANGE':
       return { ...state, [action.payload.field]: action.payload.value }
     case 'LOGIN_SUCCESS':
       let userId = action.payload.user.uid;
       let user = action.payload;
-      return { ...state, userId: userId, user: user  };
+      return { ...state, userId: userId, user: user };
     case 'LOGIN_FAILURE':
-      return { ...state , loginErrorMsg: action.payload};
+      return { ...state, loginErrorMsg: action.payload };
     case 'TOGGLE_USER_MODAL':
-        let { userModalVisible } = state;
-        return {...state, userModalVisible: !userModalVisible}
+      let { userModalVisible } = state;
+      return { ...state, userModalVisible: !userModalVisible }
     default:
       return state;
   }

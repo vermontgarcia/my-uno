@@ -5,13 +5,13 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  switch(action.type){
+  switch (action.type) {
     case 'GAME_STARTED':
-      return {...state, isActive: true, isWinner: false};
+      return { ...state, isActive: true, isWinner: false };
     case 'GAME_OVER':
-      return {...state, isActive: false};
+      return { ...state, isActive: false };
     case 'WINNER':
-      return {...state, isWinner: true};
+      return { ...state, isWinner: true };
     default:
       return state
   }

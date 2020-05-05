@@ -18,42 +18,42 @@ const deckRef = tableRef.child('deck');
 const discardPileRef = tableRef.child('discardPile');
 
 class Table extends Component {
-  
-  componentDidMount(){
+
+  componentDidMount() {
 
     firebase.auth()
-    .signInAnonymously()
-    .then(user=>{
+      .signInAnonymously()
+      .then(user => {
 
-      const handUserRef = tableRef.child('users').child(user.user.uid);
-      handRef = handUserRef.child(`hand`);
-      
-      handRef.on('value', snapshot => {
-        snapshot.val() === null ? this.props.updateHand([], this.props.userId) : this.props.updateHand(snapshot.val())
+        const handUserRef = tableRef.child('users').child(user.user.uid);
+        handRef = handUserRef.child(`hand`);
+
+        handRef.on('value', snapshot => {
+          snapshot.val() === null ? this.props.updateHand([], this.props.userId) : this.props.updateHand(snapshot.val())
+        });
+        this.props.login(user);
+      })
+      .catch(error => {
+
       });
-      this.props.login(user);
-    })
-    .catch(error => {
-      
-    });
 
     playersRef.on('value', snapshot => {
       // console.log(snapshot.val())
       snapshot.val() === null ? this.props.updateUsers({}) : this.props.updateUsers(snapshot.val())
     })
-    
+
     deckRef.on('value', snapshot => {
       snapshot.val() === null ? this.props.updateDeck([]) : this.props.updateDeck(snapshot.val())
     });
-    
+
     discardPileRef.on('value', snapshot => {
       snapshot.val() === null ? this.props.updateDiscardPile([]) : this.props.updateDiscardPile(snapshot.val())
     });
   }
 
   handleInput = (text) => {
-    const { authInputChange} = this.props;
-    authInputChange({'field': 'name', 'value' : text})
+    const { authInputChange } = this.props;
+    authInputChange({ 'field': 'name', 'value': text })
   }
 
   handleRegisterName = () => {
@@ -62,7 +62,7 @@ class Table extends Component {
     registerName(name, userId)
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     deckRef.off();
     handRef.off();
     discardPileRef.off();
@@ -85,7 +85,7 @@ class Table extends Component {
               <Text >
                 Please enter your name!
               </Text>
-              <TextInput 
+              <TextInput
                 style={styles.inputStyle}
                 type='text'
                 onChangeText={this.handleInput}

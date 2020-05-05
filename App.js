@@ -9,7 +9,7 @@ import Table from './src/components/Table';
 import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings(['Setting a timer']);
 
-export default function App(){
+export default function App() {
 
   const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 

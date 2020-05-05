@@ -4,7 +4,7 @@ import { styles } from './DiscardPileStyles';
 import { connect } from 'react-redux';
 import { startGame, returnCard, toggleModal } from '../actions';
 
-class DiscarPile extends Component{
+class DiscarPile extends Component {
 
   handleStartGame = () => {
     const { deck, discardPile, startGame } = this.props;
@@ -14,14 +14,14 @@ class DiscarPile extends Component{
   handleReturnCard = () => {
     const { discardPile, hand, userId, returnCard, toggleModal } = this.props;
     returnCard(discardPile, hand, userId);
-    toggleModal();    
+    toggleModal();
   }
 
-  render(){
+  render() {
     const { discardPile, deck } = this.props
     return (
       <View style={styles.container} >
-        {(discardPile.length === 0)?
+        {(discardPile.length === 0) ?
           deck.length !== 0 ?
             <TouchableHighlight
               style={styles.playCardButton}
@@ -37,7 +37,7 @@ class DiscarPile extends Component{
           >
             <Image
               style={styles.cardImage}
-              source={discardPile[discardPile.length-1].source}
+              source={discardPile[discardPile.length - 1].source}
             />
           </TouchableHighlight>
         }
@@ -46,8 +46,8 @@ class DiscarPile extends Component{
   }
 }
 
-const mapStateToProps = (state)=>{
-  return{
+const mapStateToProps = (state) => {
+  return {
     discardPile: state.game.discardPile,
     deck: state.game.deck,
     hand: state.game.hand,

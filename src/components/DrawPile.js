@@ -4,7 +4,7 @@ import { styles } from './DrawPileStyles';
 import { connect } from 'react-redux';
 import { drawCard, shoufleDeck, toggleModal } from '../actions';
 
- 
+
 
 class DrawPile extends Component {
 
@@ -15,11 +15,11 @@ class DrawPile extends Component {
   }
 
   handleShoufleDeck = () => {
-   const { discardPile, shoufleDeck } = this.props;
-   shoufleDeck(discardPile);
+    const { discardPile, shoufleDeck } = this.props;
+    shoufleDeck(discardPile);
   }
 
-  render(){
+  render() {
     return (
       <View style={styles.container}>
         {this.props.deck.length === 0 ?

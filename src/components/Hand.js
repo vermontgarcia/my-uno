@@ -7,14 +7,14 @@ import Card from './Card';
 
 class Hand extends Component {
 
-  renderButton(text, style, onPress){
+  renderButton(text, style, onPress) {
     return (
       <TouchableHighlight
-          style={style}
-          onPress={onPress}
-        >
-          <Text style={styles.textStyle}>{text}</Text>
-        </TouchableHighlight>
+        style={style}
+        onPress={onPress}
+      >
+        <Text style={styles.textStyle}>{text}</Text>
+      </TouchableHighlight>
     )
   }
 
@@ -28,8 +28,8 @@ class Hand extends Component {
     drawCard(deck, hand, userId);
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <View style={styles.container}>
         <Modal
           animationType='slide'
@@ -46,40 +46,40 @@ class Hand extends Component {
                   horizontal={true}
                   centerContent={true}
                 >
-                  {this.props.hand.map((card, index)=>
+                  {this.props.hand.map((card, index) =>
                     <Card
                       key={index}
                       card={card}
                       index={index}
                     />
-                    )}
+                  )}
                 </ScrollView>
               </View>
 
               {this.props.hand.length === 0 ?
-                this.props.deck.length >= 7 ? 
+                this.props.deck.length >= 7 ?
                   <View style={styles.buttonsWraper}>
                     {this.renderButton('Get Hand', styles.playCardButton, this.handleGetHand)}
                     {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard)}
                     {this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)}
-                  </View> 
-                :
-                  this.props.deck.length > 0 ? 
+                  </View>
+                  :
+                  this.props.deck.length > 0 ?
                     <View style={styles.buttonsWraper}>
                       {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard)}
                       {this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)}
-                    </View> 
-                  :
+                    </View>
+                    :
                     <View style={styles.buttonsWraper}>
                       {this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)}
                     </View>
-              :
-                this.props.deck.length > 0 ? 
+                :
+                this.props.deck.length > 0 ?
                   <View style={styles.buttonsWraper}>
                     {this.renderButton('Draw Card', styles.playCardButton, this.handleDrawCard)}
                     {this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)}
-                  </View> 
-                :
+                  </View>
+                  :
                   <View style={styles.buttonsWraper}>
                     {this.renderButton('Hide Hand', styles.playCardButton, this.props.toggleModal)}
                   </View>
@@ -94,7 +94,7 @@ class Hand extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return{
+  return {
     hand: state.game.hand,
     handModalVisible: state.game.handModalVisible,
     deck: state.game.deck,
@@ -110,4 +110,4 @@ const mapDispatchToProps = {
   toggleModal,
 }
 
-export default connect(mapStateToProps, mapDispatchToProps )(Hand);
+export default connect(mapStateToProps, mapDispatchToProps)(Hand);

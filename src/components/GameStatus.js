@@ -7,12 +7,12 @@ import Player from './Player';
 
 class GameStatus extends Component {
 
-  render(){
+  render() {
     const { players } = this.props;
     return (
       <View style={styles.container}>
         <View style={styles.playersContainer}>
-          {this.props.players.map((player)=> <Player key={player.id} player={player} />)}
+          {players.map((player) => <Player key={player.id} player={player} />)}
         </View>
       </View>
     )

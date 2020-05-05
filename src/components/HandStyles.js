@@ -13,7 +13,7 @@ export const styles = StyleSheet.create({
     borderRadius: borderRadius,
   },
   centeredView: {
-    flex:1,
+    flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
   },
@@ -54,7 +54,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
-    width: width-30,
+    width: width - 30,
     borderColor: 'red',
     borderStyle: 'solid',
     borderWidth: borderWidth,
@@ -72,7 +72,7 @@ export const styles = StyleSheet.create({
     borderWidth: borderWidth,
     borderColor: 'red',
     borderRadius: borderRadius,
-    width: width-30,
+    width: width - 30,
   },
   cardsLeftWrapper: {
     width: 40,

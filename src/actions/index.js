@@ -26,7 +26,7 @@ export const registerName = (name, userId) => {
   const nameRef = tableRef.child('users').child(userId).child('name');
   return dispatch => {
     nameRef.set(name)
-      .then(()=>{
+      .then(() => {
         dispatch({ type: 'TOGGLE_USER_MODAL' })
       })
   }
@@ -36,18 +36,18 @@ export const getHand = (oldDeck, oldHand, userId) => {
 
   let deck = [...oldDeck]
   let hand = [...oldHand]
-  
-  for(let i = 0; i < 7; i++){
+
+  for (let i = 0; i < 7; i++) {
     hand.push(deck.pop())
   }
 
   const handRef = tableRef.child('users').child(userId).child('hand');
-  
+
   deckRef.set(deck)
   handRef.set(hand)
-  
+
   return ({
-      type: 'GET_HAND',
+    type: 'GET_HAND',
   });
 }
 
@@ -57,7 +57,7 @@ export const playCard = (oldHand, userId, index, oldDiscardPile) => {
   let discardPile = [...oldDiscardPile]
 
   discardPile.push(hand.splice(index, 1)[0]);
-  
+
   const handRef = tableRef.child('users').child(userId).child('hand');
 
   handRef.set(hand)
@@ -79,7 +79,7 @@ export const drawCard = (oldDeck, oldHand, userId) => {
 
   deckRef.set(deck)
   handRef.set(hand)
-  
+
   return {
     type: 'DRAW_CARD',
   }
@@ -96,7 +96,7 @@ export const returnCard = (oldDiscardPile, oldHand, userId) => {
 
   discardPileRef.set(discardPile)
   handRef.set(hand)
-  
+
   return {
     type: 'RETURN_CARD',
   }
@@ -116,30 +116,30 @@ export const toggleUserModal = () => {
 
 export const shoufleDeck = (oldDiscardPile) => {
 
-  if(oldDiscardPile.length !== 0){
+  if (oldDiscardPile.length !== 0) {
 
     let discardPile = [...oldDiscardPile];
     let deck = [];
     let card = discardPile.pop();
     let deckLength = discardPile.length
 
-    for(let i=0; i< deckLength; i++){
-      deck.push(discardPile.splice(Math.floor(Math.random()*discardPile.length),1)[0]);
+    for (let i = 0; i < deckLength; i++) {
+      deck.push(discardPile.splice(Math.floor(Math.random() * discardPile.length), 1)[0]);
     }
     discardPile.push(card);
 
     return (dispatch) => {
       deckRef.set(deck)
       discardPileRef.set(discardPile)
-        .then(() => dispatch( {type: 'SHOUFLE_DISCARD_PILE'} ))
+        .then(() => dispatch({ type: 'SHOUFLE_DISCARD_PILE' }))
     }
   }
 
   let deckLength = initialDeck.length
   let newDeck = [...initialDeck]
   let deck = [];
-  for(let i=0; i< deckLength; i++){
-    deck.push(newDeck.splice(Math.floor(Math.random()*newDeck.length),1)[0]);
+  for (let i = 0; i < deckLength; i++) {
+    deck.push(newDeck.splice(Math.floor(Math.random() * newDeck.length), 1)[0]);
   }
 
   return (dispatch) => {
@@ -177,12 +177,12 @@ export const updateUsers = (playersObj) => {
   let playerIds = []
   let players = []
   playerIds = Object.keys(playersObj)
-  
+
   // console.log('Array Users =====> ', userIds)
 
   playerIds.forEach(id => {
     // console.log(playersObj[id].name, playersObj[id].hand ? playersObj[id].hand.length : 0)
-    let user={}
+    let user = {}
     user.id = id
     user.name = playersObj[id].name
     user.hand = playersObj[id].hand

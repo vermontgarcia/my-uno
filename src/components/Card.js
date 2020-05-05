@@ -12,7 +12,7 @@ class Card extends Component {
     toggleModal();
   }
 
-  render(){
+  render() {
     return (
       <View>
         <TouchableHighlight
@@ -29,7 +29,7 @@ class Card extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return{
+  return {
     hand: state.game.hand,
     discardPile: state.game.discardPile,
     userId: state.auth.userId,
